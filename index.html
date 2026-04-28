@@ -120,6 +120,7 @@
           <button
             class="timeline-card active"
             type="button"
+            data-ui-mode="cui"
             data-lineage="コマンドは面倒だが、要求の形は明確だった。"
           >
             <span>CUI / DOS</span>
@@ -129,6 +130,7 @@
           <button
             class="timeline-card"
             type="button"
+            data-ui-mode="gui"
             data-lineage="選択肢が見えることで、訂正ややり直しも見えていた。"
           >
             <span>GUI</span>
@@ -138,6 +140,7 @@
           <button
             class="timeline-card"
             type="button"
+            data-ui-mode="zero"
             data-lineage="操作は消えた。しかし判断の根拠や訂正の入口も薄くなった。"
           >
             <span>Zero UI</span>
@@ -147,12 +150,28 @@
           <button
             class="timeline-card"
             type="button"
+            data-ui-mode="negotiable"
             data-lineage="普段は黙り、ズレた瞬間だけ交渉の足場として現れる。"
           >
             <span>Negotiable UI</span>
             <h3>交渉できるUI</h3>
             <p>必要な瞬間だけ、理由を返す場を開く。</p>
           </button>
+        </div>
+        <div class="ui-mode-surface mode-cui" id="uiModeSurface" aria-live="polite">
+          <div class="ui-mode-head">
+            <span>UI MODE</span>
+            <strong id="uiModeTitle">CUI / DOS</strong>
+          </div>
+          <div class="ui-mode-callout" id="uiModeCallout">これがCUI！</div>
+          <div class="ui-mode-preview" id="uiModePreview">
+            <div class="terminal-preview">
+              <span>IIWAKE&gt; set action "締切前だけど休憩する"</span>
+              <span>IIWAKE&gt; add reason "疲れている"</span>
+              <span>IIWAKE&gt; negotiate --minutes 10</span>
+              <strong>RESULT: YELLOW / GATE HALF OPEN</strong>
+            </div>
+          </div>
         </div>
         <div class="readout-panel">
           <span>READOUT</span>

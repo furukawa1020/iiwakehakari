@@ -11,6 +11,10 @@ const autoToggle = document.querySelector("#autoToggle");
 
 const signalCaption = document.querySelector("#signalCaption");
 const lineageReadout = document.querySelector("#lineageReadout");
+const uiModeSurface = document.querySelector("#uiModeSurface");
+const uiModeTitle = document.querySelector("#uiModeTitle");
+const uiModeCallout = document.querySelector("#uiModeCallout");
+const uiModePreview = document.querySelector("#uiModePreview");
 const reasonReadout = document.querySelector("#reasonReadout");
 const weightReadout = document.querySelector("#weightReadout");
 const nodeDetail = document.querySelector("#nodeDetail");
@@ -42,6 +46,90 @@ let appealCount = 0;
 let remeasureCount = 0;
 
 const autoDelay = 11500;
+const uiModes = {
+  cui: {
+    title: "CUI / DOS",
+    callout: "これがCUI！",
+    html: `
+      <div class="terminal-preview" data-sim-mode="cui">
+        <div class="terminal-lines" id="terminalLines">
+          <span>IIWAKE&gt; set action "締切前だけど休憩する"</span>
+          <span>IIWAKE&gt; add reason "疲れている"</span>
+          <strong>READY. type command or press a preset.</strong>
+        </div>
+        <label class="cui-command">
+          <span>IIWAKE&gt;</span>
+          <input id="cuiInput" value="negotiate --minutes 10" autocomplete="off" />
+          <button type="button" data-cui-run>RUN</button>
+        </label>
+        <div class="cui-presets">
+          <button type="button" data-command="status">status</button>
+          <button type="button" data-command="appeal --reason tired">appeal --reason tired</button>
+          <button type="button" data-command="negotiate --minutes 10">negotiate --minutes 10</button>
+        </div>
+      </div>
+    `,
+  },
+  gui: {
+    title: "GUI",
+    callout: "これがGUI！",
+    html: `
+      <div class="window-preview" data-sim-mode="gui">
+        <div class="window-box">
+          <span class="window-title">Action Card</span>
+          <p>締切前だけど休憩する</p>
+          <div class="window-buttons">
+            <button type="button" data-gui-action="select">選択</button>
+            <button type="button" data-gui-action="cancel">取消</button>
+          </div>
+        </div>
+        <div class="window-box">
+          <span class="window-title">Reason Dialog</span>
+          <p>疲れている / もう少しで戻る</p>
+          <div class="window-buttons">
+            <button type="button" data-gui-action="submit">申請</button>
+            <button type="button" data-gui-action="edit">編集</button>
+          </div>
+        </div>
+        <div class="gui-status" id="guiStatus">ボタンを押すとダイアログ状態が変わる。</div>
+      </div>
+    `,
+  },
+  zero: {
+    title: "Zero UI",
+    callout: "これがZero UI！",
+    html: `
+      <div class="zero-preview" data-sim-mode="zero">
+        <button class="zero-surface" type="button" data-zero-sense>
+          <strong>...</strong>
+          <p id="zeroStatus">表面を押す。UIは見えないが、環境が反応する。</p>
+        </button>
+      </div>
+    `,
+  },
+  negotiable: {
+    title: "Negotiable UI",
+    callout: "これがNegotiable UI！",
+    html: `
+      <div class="negotiable-preview" data-sim-mode="negotiable">
+        <button class="mini-card active" type="button" data-mini-reason="tired">
+          <span>REASON CARD</span>
+          <strong>疲れている</strong>
+          <p>+24g</p>
+        </button>
+        <button class="mini-card" type="button" data-mini-reason="return">
+          <span>REASON CARD</span>
+          <strong>もう少しで戻る</strong>
+          <p>+18g</p>
+        </button>
+        <div class="mini-gate">
+          <div class="mini-gate-bars"><span></span><span></span></div>
+          <p id="miniNegotiationStatus">黄：条件付き許可 / 42g</p>
+        </div>
+      </div>
+    `,
+  },
+};
 
 const actions = {
   break: {
@@ -89,6 +177,63 @@ function stamp(element) {
   window.requestAnimationFrame(() => {
     element.classList.add("is-stamped");
   });
+}
+
+function setUiMode(mode) {
+  const nextMode = uiModes[mode] ? mode : "negotiable";
+  document.body.classList.remove("ui-cui", "ui-gui", "ui-zero", "ui-negotiable");
+  document.body.classList.add(`ui-${nextMode}`);
+  if (uiModeSurface) {
+    uiModeSurface.className = `ui-mode-surface mode-${nextMode}`;
+  }
+  if (uiModeTitle) uiModeTitle.textContent = uiModes[nextMode].title;
+  if (uiModeCallout) {
+    uiModeCallout.textContent = uiModes[nextMode].callout;
+    stamp(uiModeCallout);
+  }
+  if (uiModePreview) uiModePreview.innerHTML = uiModes[nextMode].html;
+}
+
+function runCuiCommand(command) {
+  const terminalLines = document.querySelector("#terminalLines");
+  if (!terminalLines || !command.trim()) return;
+  const normalized = command.trim();
+  let response = "RESULT: UNKNOWN COMMAND";
+  if (normalized === "status") {
+    response = "STATUS: ACTION=休憩 / REASON=疲労 / GATE=CLOSED";
+  } else if (normalized.startsWith("appeal")) {
+    response = "APPEAL ACCEPTED: REASON WEIGHT +9g";
+  } else if (normalized.startsWith("negotiate")) {
+    response = "RESULT: YELLOW / 10 MINUTES / GATE HALF OPEN";
+  } else if (normalized.startsWith("set")) {
+    response = "OK: ACTION UPDATED";
+  }
+  terminalLines.insertAdjacentHTML(
+    "beforeend",
+    `<span>IIWAKE&gt; ${escapeHtml(normalized)}</span><strong>${escapeHtml(response)}</strong>`,
+  );
+  terminalLines.scrollTop = terminalLines.scrollHeight;
+}
+
+function updateMiniNegotiation() {
+  const activeCards = [...document.querySelectorAll("[data-mini-reason].active")];
+  const score = activeCards.reduce((sum, card) => {
+    return sum + (card.dataset.miniReason === "tired" ? 24 : 18);
+  }, 0);
+  const status = document.querySelector("#miniNegotiationStatus");
+  const gateBars = document.querySelector(".mini-gate-bars");
+  if (!status || !gateBars) return;
+  let text = `赤：理由が足りません / ${score}g`;
+  gateBars.className = "mini-gate-bars closed";
+  if (score >= 42) {
+    text = `黄：条件付き許可 / ${score}g`;
+    gateBars.className = "mini-gate-bars half";
+  }
+  if (score >= 58) {
+    text = `青：通ってよい / ${score}g`;
+    gateBars.className = "mini-gate-bars open";
+  }
+  status.textContent = text;
 }
 
 function resetAutoTimer() {
@@ -246,11 +391,72 @@ document.querySelectorAll(".signal").forEach((button) => {
   });
 });
 
+uiModePreview?.addEventListener("click", (event) => {
+  const commandButton = event.target.closest("[data-command]");
+  if (commandButton) {
+    const input = document.querySelector("#cuiInput");
+    if (input) input.value = commandButton.dataset.command;
+    runCuiCommand(commandButton.dataset.command);
+    resetAutoTimer();
+    return;
+  }
+
+  if (event.target.closest("[data-cui-run]")) {
+    const input = document.querySelector("#cuiInput");
+    runCuiCommand(input?.value || "");
+    resetAutoTimer();
+    return;
+  }
+
+  const guiButton = event.target.closest("[data-gui-action]");
+  if (guiButton) {
+    const status = document.querySelector("#guiStatus");
+    const labels = {
+      select: "Action Card を選択。次に Reason Dialog が開く。",
+      cancel: "選択を取消。状態は未確定に戻る。",
+      submit: "理由を申請。判定は 黄：条件付き許可。",
+      edit: "理由を編集。ユーザーが判断へ介入している。",
+    };
+    if (status) status.textContent = labels[guiButton.dataset.guiAction];
+    stamp(guiButton);
+    resetAutoTimer();
+    return;
+  }
+
+  if (event.target.closest("[data-zero-sense]")) {
+    const status = document.querySelector("#zeroStatus");
+    if (status) {
+      status.textContent =
+        status.textContent.includes("反応する")
+          ? "通知だけが返る。訂正の入口はまだ見えにくい。"
+          : "表面を押す。UIは見えないが、環境が反応する。";
+    }
+    resetAutoTimer();
+    return;
+  }
+
+  const miniCard = event.target.closest("[data-mini-reason]");
+  if (miniCard) {
+    miniCard.classList.toggle("active");
+    updateMiniNegotiation();
+    stamp(miniCard);
+    resetAutoTimer();
+  }
+});
+
+uiModePreview?.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" || event.target.id !== "cuiInput") return;
+  event.preventDefault();
+  runCuiCommand(event.target.value);
+  resetAutoTimer();
+});
+
 document.querySelectorAll(".timeline-card").forEach((card) => {
   card.addEventListener("click", () => {
     document.querySelectorAll(".timeline-card").forEach((item) => item.classList.remove("active"));
     card.classList.add("active");
     if (lineageReadout) lineageReadout.textContent = card.dataset.lineage;
+    setUiMode(card.dataset.uiMode);
     stamp(card);
     resetAutoTimer();
   });
