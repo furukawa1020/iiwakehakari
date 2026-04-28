@@ -141,7 +141,7 @@ button {
   right: 0;
   z-index: 40;
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto auto 1fr auto auto;
   align-items: center;
   gap: 18px;
   padding: 12px clamp(16px, 3vw, 44px);
@@ -191,6 +191,14 @@ body.ui-cui .ui-mode-surface {
   color: #e9fff0;
 }
 
+body.ui-cui .why-card,
+body.ui-cui .solist-reason,
+body.ui-cui .solist-memory {
+  background: #101817;
+  border-color: #62d38d;
+  color: #e9fff0;
+}
+
 body.ui-cui .copy p,
 body.ui-cui .lead,
 body.ui-cui .timeline-card p,
@@ -203,9 +211,15 @@ body.ui-cui .signal-caption {
   color: #9fb8aa;
 }
 
+body.ui-cui .why-card p,
+body.ui-cui .solist-reason p {
+  color: #9fb8aa;
+}
+
 body.ui-cui .button.secondary,
 body.ui-cui .deck-controls button,
 body.ui-cui .dot,
+body.ui-cui .maker-link,
 body.ui-cui .choice,
 body.ui-cui .reason-choice,
 body.ui-cui .mode-choice,
@@ -264,7 +278,8 @@ body.ui-zero .dot:not(.active) {
 .brand,
 .nav,
 .deck-controls,
-.slide-meter {
+.slide-meter,
+.maker-link {
   display: flex;
   align-items: center;
 }
@@ -301,6 +316,24 @@ body.ui-zero .dot:not(.active) {
   color: var(--muted);
   font-size: 14px;
   white-space: nowrap;
+}
+
+.maker-link {
+  width: fit-content;
+  min-height: 34px;
+  padding: 5px 10px;
+  border: 2px solid var(--charcoal);
+  background: var(--amber);
+  color: #202022;
+  box-shadow: 3px 3px 0 rgba(32, 32, 34, 0.18);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.maker-link:hover {
+  transform: translate(-1px, -1px);
 }
 
 .nav a,
@@ -412,8 +445,15 @@ body.ui-zero .dot:not(.active) {
 .split,
 .concept,
 .why,
-.demo {
+.demo,
+.why-you,
+.why-solist {
   grid-template-columns: minmax(0, 1.04fr) minmax(320px, 0.82fr);
+}
+
+.why-you .statement,
+.why-solist .statement {
+  grid-column: 1 / -1;
 }
 
 .hero-copy,
@@ -429,6 +469,8 @@ body.ui-zero .dot:not(.active) {
 .reason-slide,
 .experience,
 .system,
+.why-you,
+.why-solist,
 .solist {
   align-items: start;
 }
@@ -638,6 +680,100 @@ p {
 .feature-list {
   display: grid;
   gap: 16px;
+}
+
+.why-console,
+.solist-console {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.why-console .operation-tag,
+.solist-console .operation-tag {
+  grid-column: 1 / -1;
+}
+
+.why-card,
+.solist-reason {
+  min-height: 218px;
+  padding: 22px;
+  border: 1px solid var(--rule);
+  background: rgba(255, 250, 240, 0.86);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.why-card:hover,
+.solist-reason:hover {
+  transform: translate(-1px, -1px);
+}
+
+.why-card.active,
+.solist-reason.active {
+  background: #243236;
+  color: var(--panel);
+}
+
+.why-card span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 16px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.why-card p,
+.solist-reason p {
+  color: var(--muted);
+}
+
+.why-card.active p,
+.solist-reason.active p {
+  color: rgba(255, 250, 240, 0.72);
+}
+
+.why-readout {
+  grid-column: 1 / -1;
+}
+
+.solist-memory {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  background: var(--white);
+  border: 2px solid var(--charcoal);
+  box-shadow: var(--shadow);
+}
+
+.solist-memory > span {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.memory-row {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.35fr) 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.memory-row b,
+.memory-row strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.memory-row meter {
+  width: 100%;
+  height: 18px;
 }
 
 .timeline {
@@ -1607,7 +1743,7 @@ legend {
   bottom: 18px;
   z-index: 35;
   display: grid;
-  grid-template-columns: 1fr minmax(160px, 280px) auto;
+  grid-template-columns: 1fr minmax(160px, 280px) auto auto;
   gap: 14px;
   align-items: center;
   pointer-events: none;
@@ -1702,12 +1838,16 @@ legend {
   .concept,
   .why,
   .demo,
+  .why-you,
+  .why-solist,
   .interactive-demo {
     grid-template-columns: 1fr;
   }
 
   .timeline,
   .steps,
+  .why-console,
+  .solist-console,
   .feature-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1742,6 +1882,11 @@ legend {
     gap: 8px 12px;
   }
 
+  .maker-top {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
   .nav {
     grid-column: 1 / -1;
     justify-content: flex-start;
@@ -1765,6 +1910,8 @@ legend {
   .timeline,
   .reason-grid,
   .steps,
+  .why-console,
+  .solist-console,
   .feature-list,
   .meter-stack {
     grid-template-columns: 1fr;
@@ -1772,9 +1919,16 @@ legend {
 
   .timeline-card,
   .reason-note,
+  .why-card,
+  .solist-reason,
   .steps article,
   .feature-list article {
     min-height: auto;
+  }
+
+  .memory-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .slide-footer {

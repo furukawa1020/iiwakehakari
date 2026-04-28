@@ -18,6 +18,8 @@ const uiModePreview = document.querySelector("#uiModePreview");
 const reasonReadout = document.querySelector("#reasonReadout");
 const weightReadout = document.querySelector("#weightReadout");
 const nodeDetail = document.querySelector("#nodeDetail");
+const whyYouReadout = document.querySelector("#whyYouReadout");
+const whySolistReadout = document.querySelector("#whySolistReadout");
 
 const actionButtons = [...document.querySelectorAll("[data-action]")];
 const reasonButtons = [...document.querySelectorAll("[data-reason]")];
@@ -484,6 +486,26 @@ document.querySelectorAll(".node").forEach((node) => {
   node.addEventListener("click", () => {
     if (nodeDetail) nodeDetail.textContent = node.dataset.node;
     stamp(node);
+    resetAutoTimer();
+  });
+});
+
+document.querySelectorAll("[data-why-you]").forEach((card) => {
+  card.addEventListener("click", () => {
+    document.querySelectorAll("[data-why-you]").forEach((item) => item.classList.remove("active"));
+    card.classList.add("active");
+    if (whyYouReadout) whyYouReadout.textContent = card.dataset.whyYou;
+    stamp(card);
+    resetAutoTimer();
+  });
+});
+
+document.querySelectorAll("[data-why-solist]").forEach((card) => {
+  card.addEventListener("click", () => {
+    document.querySelectorAll("[data-why-solist]").forEach((item) => item.classList.remove("active"));
+    card.classList.add("active");
+    if (whySolistReadout) whySolistReadout.textContent = card.dataset.whySolist;
+    stamp(card);
     resetAutoTimer();
   });
 });
