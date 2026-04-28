@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="いいわけ秤：AIの判断に、理由の重さで交渉する卓上デバイス"
+    />
+    <meta property="og:title" content="いいわけ秤" />
+    <meta
+      property="og:description"
+      content="AIの判断に、理由の重さで交渉する卓上デバイス"
+    />
+    <meta property="og:image" content="assets/iiwakehakari-hero.png" />
+    <title>いいわけ秤 | AIの判断に交渉できる卓上デバイス</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Noto+Serif+JP:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar" aria-label="スライドナビゲーション">
+      <a class="brand" href="#top" aria-label="先頭へ戻る">
+        <span class="brand-mark"></span>
+        いいわけ秤
+      </a>
+      <nav class="nav">
+        <a href="#lineage">系譜</a>
+        <a href="#concept">コンセプト</a>
+        <a href="#experience">体験</a>
+        <a href="#system">システム</a>
+        <a href="#demo">デモ</a>
+        <a href="#solist">Solist-AI</a>
+      </nav>
+      <div class="slide-meter" aria-label="現在位置">
+        <span id="slideNumber">01</span><span>/</span><span>11</span>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero slide" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="kicker">AIの判断に、理由の重さで交渉する卓上デバイス</p>
+          <h1 id="hero-title">あなたの言い訳、今日は何グラム？</h1>
+          <p class="lead">
+            AIが人間を判断する時代に、人間はAIへ異議申し立てできるのか。
+            <strong>いいわけ秤</strong>は、従うか無視するかの間にある
+            「交渉の余白」を、必要な瞬間にだけ現れるUIとして物体化する。
+          </p>
+          <div class="hero-actions" aria-label="主要リンク">
+            <a class="button primary" href="#story">ストーリーを見る</a>
+            <a class="button secondary" href="#system">構成図へ</a>
+          </div>
+        </div>
+        <figure class="hero-visual">
+          <img
+            src="assets/iiwakehakari-hero.png"
+            alt="針、LED、小型ゲートを備えた卓上プロトタイプのイメージ"
+          />
+          <figcaption>理由を載せる。重みを推定する。ゲートを制御する。</figcaption>
+        </figure>
+      </section>
+
+      <section id="story" class="slide split">
+        <div class="copy">
+          <p class="eyebrow">01 / Problem</p>
+          <h2>AIは、私たちの行動を判断するようになった</h2>
+          <p>
+            集中支援アプリ、習慣化アプリ、スマートホーム、ウェルビーイング支援。
+            AIやスマートデバイスは、私たちの状態を推定し、行動を促すだけでなく、
+            ときに止めるようになっている。
+          </p>
+          <div class="quote-stack" aria-label="AIからの判断">
+            <p>「今はやめた方がいい」</p>
+            <p>「そろそろ行動した方がいい」</p>
+            <p>「その選択は望ましくない」</p>
+          </div>
+          <p class="closing">
+            問題は、AIが判断すること自体ではない。判断された側の人間が、
+            その判断にどう返答できるのかである。
+          </p>
+        </div>
+        <div class="signal-panel" aria-label="AI判断の信号表現">
+          <div class="signal red">止まれ</div>
+          <div class="signal amber">条件付き</div>
+          <div class="signal blue">通ってよい</div>
+          <div class="signal-caption">
+            便利な判断は、いつの間にか一方通行の信号になる。
+          </div>
+        </div>
+      </section>
+
+      <section id="lineage" class="slide lineage">
+        <div class="copy narrow">
+          <p class="eyebrow">02 / HCI Lineage</p>
+          <h2>CUIからGUI、Zero UIへ。そしてNegotiable UIへ</h2>
+          <p>
+            UIは、操作の道具であると同時に、ユーザーがシステムへ要求し、
+            修正し、異議申し立てするための足場でもあった。
+          </p>
+        </div>
+        <div class="timeline" aria-label="UIの変遷">
+          <article>
+            <span>CUI / DOS</span>
+            <h3>命令するUI</h3>
+            <p>ユーザーはコマンドを打ち、システムに明示的に要求する。</p>
+          </article>
+          <article>
+            <span>GUI</span>
+            <h3>選択するUI</h3>
+            <p>ボタン、窓、メニューを通じて、操作の選択肢が見える。</p>
+          </article>
+          <article>
+            <span>Zero UI</span>
+            <h3>消えるUI</h3>
+            <p>操作の手間は減るが、判断の根拠や訂正の入口も見えにくくなる。</p>
+          </article>
+          <article>
+            <span>Negotiable UI</span>
+            <h3>交渉できるUI</h3>
+            <p>普段は黙っていて、ズレた瞬間だけ理由を返す場を開く。</p>
+          </article>
+        </div>
+        <p class="full-width statement lineage-thesis">
+          Zero UIが消したのは、操作の手間だけではない。
+          ユーザーが異議申し立てするための足場でもある。
+        </p>
+      </section>
+
+      <section class="slide reason-slide">
+        <div class="copy narrow">
+          <p class="eyebrow">03 / Human Context</p>
+          <h2>人間には、理由がある</h2>
+          <p>
+            行動変容システムでは、先延ばしや逸脱は失敗として扱われがちである。
+            しかし実際には、その場の人間には文脈がある。
+          </p>
+        </div>
+        <div class="reason-grid" aria-label="理由カード一覧">
+          <article>疲れている。</article>
+          <article>あと5分だけならできる。</article>
+          <article>今日は例外かもしれない。</article>
+          <article>タスクの定義が大きすぎる。</article>
+          <article>これはサボりではなく回復かもしれない。</article>
+          <article>AIの判断が、今の文脈とズレているかもしれない。</article>
+        </div>
+        <p class="full-width statement">
+          AIの判断に従うか、無視するか。その二択だけではなく、
+          理由を返して交渉する余地が必要ではないか。
+        </p>
+      </section>
+
+      <section id="concept" class="slide concept">
+        <div class="copy">
+          <p class="eyebrow">04 / Concept</p>
+          <h2>言い訳を、交渉材料にする</h2>
+          <p>
+            いいわけ秤は、AIが止めた行動に対して、ユーザーが理由を提示して
+            交渉する装置である。必要のないときは静かに黙り、AIの判断と
+            人間の文脈がズレた瞬間だけ、理由を返すUIとして立ち上がる。
+          </p>
+          <div class="flow-compare">
+            <div>
+              <span>普通のシステム</span>
+              <strong>行動 → 判定 → 許可 / 不許可</strong>
+            </div>
+            <div>
+              <span>いいわけ秤</span>
+              <strong>行動 → 判定 → 理由提示 → 交渉 → 条件付き判断</strong>
+            </div>
+          </div>
+        </div>
+        <div class="scale-card" aria-label="いいわけ秤の反応イメージ">
+          <div class="scale-head">
+            <span>理由の重さ</span>
+            <strong>62g</strong>
+          </div>
+          <div class="gauge">
+            <div class="needle"></div>
+            <div class="gauge-base"></div>
+          </div>
+          <div class="leds">
+            <span class="led red"></span>
+            <span class="led amber active"></span>
+            <span class="led blue"></span>
+          </div>
+          <div class="gate half">
+            <span></span>
+            <span></span>
+          </div>
+          <p>黄：10分だけ条件付き許可</p>
+        </div>
+      </section>
+
+      <section id="experience" class="slide experience">
+        <div class="copy narrow">
+          <p class="eyebrow">05 / Experience</p>
+          <h2>体験の流れ</h2>
+          <p>
+            来場者は自分の行動と言い訳を選び、それがAIにどの程度通るかを見る。
+            「止められた人」ではなく、「理由を返せる人」になる体験である。
+          </p>
+        </div>
+        <div class="steps" aria-label="体験ステップ">
+          <article>
+            <span>1</span>
+            <h3>行動カードを選ぶ</h3>
+            <p>「あと5分だけSNSを見る」「締切前だけど休憩する」</p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>AIが初期判定する</h3>
+            <p>赤：止まれ / 黄：条件付き / 青：通ってよい</p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>理由カードを載せる</h3>
+            <p>「疲れている」「研究に必要」「今日だけ」「もう少しで終わる」</p>
+          </article>
+          <article>
+            <span>4</span>
+            <h3>物理的に返す</h3>
+            <p>針が傾き、LEDが変わり、ゲートが開く / 半開き / 閉じる。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="slide why">
+        <div class="copy">
+          <p class="eyebrow">06 / Form</p>
+          <h2>なぜ「秤」なのか</h2>
+          <p>
+            交渉とは、理由の重みづけである。同じ言葉でも、その重さは人、
+            状況、履歴によって変化する。
+          </p>
+          <p>
+            本当に限界のときの「疲れている」は重い。毎回何かを避けるための
+            「疲れている」は、だんだん軽くなるかもしれない。
+          </p>
+        </div>
+        <div class="weight-examples">
+          <div class="beam">
+            <span>1回目の「疲れている」</span>
+            <strong>重い</strong>
+          </div>
+          <div class="beam light">
+            <span>毎回の「疲れている」</span>
+            <strong>軽い</strong>
+          </div>
+          <div class="beam">
+            <span>区切りをつける「あと5分」</span>
+            <strong>重い</strong>
+          </div>
+          <div class="beam light">
+            <span>毎回30分になる「あと5分」</span>
+            <strong>軽い</strong>
+          </div>
+        </div>
+      </section>
+
+      <section id="system" class="slide system">
+        <div class="copy narrow">
+          <p class="eyebrow">07 / System</p>
+          <h2>システム構成</h2>
+          <p>
+            入力は行動カードと理由カード。Solist-AIが初期判定と理由の重み推定を行い、
+            針・LED・ゲートのリアルタイム制御へ返す。
+          </p>
+        </div>
+        <div class="system-diagram" aria-label="システム構成図">
+          <article class="node action">
+            <h3>行動カード</h3>
+            <p>あと5分SNS / 締切前の休憩 / 今日だけサボる</p>
+          </article>
+          <article class="node detect">
+            <h3>カード検知</h3>
+            <p>RFID / 抵抗値 / ボタン選択</p>
+          </article>
+          <article class="node ai">
+            <h3>Solist-AI™</h3>
+            <p>初期判定、理由の重み推定、交渉パターンのオンデバイス学習</p>
+          </article>
+          <article class="node output">
+            <h3>物理出力</h3>
+            <p>サーボ針、赤黄青LED、小型ゲート、ブザー、短文表示</p>
+          </article>
+          <article class="node input">
+            <h3>交渉入力</h3>
+            <p>理由カード、猶予時間ダイヤル、異議申し立てボタン、例外申請レバー</p>
+          </article>
+        </div>
+        <div class="spec-strip" aria-label="プロトタイプ実装の具体例">
+          <span>最小実装：ボタン選択 + サーボ + LED</span>
+          <span>発展実装：RFIDカード + ダイヤル + レバー</span>
+          <span>出力：針角度 / ゲート開度 / 短文フィードバック</span>
+        </div>
+      </section>
+
+      <section id="demo" class="slide demo">
+        <div class="copy">
+          <p class="eyebrow">08 / Demo</p>
+          <h2>その場で交渉してみる</h2>
+          <p>
+            行動カードを選び、理由カードを載せ、猶予時間を指定する。
+            判断は抽象的なスコアではなく、針、LED、ゲート、交渉ログとして返る。
+          </p>
+        </div>
+        <div class="interactive-demo" aria-label="いいわけ秤の操作デモ">
+          <div class="demo-controls">
+            <fieldset>
+              <legend>行動カード</legend>
+              <button class="choice active" type="button" data-action="break" aria-pressed="true">
+                締切前だけど休憩する
+              </button>
+              <button class="choice" type="button" data-action="sns" aria-pressed="false">
+                あと5分だけSNSを見る
+              </button>
+              <button class="choice" type="button" data-action="skip" aria-pressed="false">
+                今日はサボる
+              </button>
+            </fieldset>
+
+            <fieldset>
+              <legend>理由カード</legend>
+              <button class="reason-choice active" type="button" data-reason="tired" aria-pressed="true">
+                疲れている
+              </button>
+              <button class="reason-choice active" type="button" data-reason="return" aria-pressed="true">
+                もう少しで戻る
+              </button>
+              <button class="reason-choice" type="button" data-reason="research" aria-pressed="false">
+                研究に必要
+              </button>
+              <button class="reason-choice" type="button" data-reason="today" aria-pressed="false">
+                今日だけ
+              </button>
+              <button class="reason-choice" type="button" data-reason="task" aria-pressed="false">
+                タスクが大きすぎる
+              </button>
+            </fieldset>
+
+            <label class="time-dial" for="minutesRange">
+              <span>申請する猶予</span>
+              <strong id="minutesLabel">10分</strong>
+              <input id="minutesRange" type="range" min="5" max="30" value="10" step="5" />
+            </label>
+          </div>
+
+          <div class="device-console">
+            <div class="status-stamp amber" id="demoStatus" aria-live="polite">
+              黄：10分だけ条件付き許可
+            </div>
+            <div class="scale-card demo-scale" aria-label="交渉結果の物理出力">
+              <div class="scale-head">
+                <span>推定された理由の重さ</span>
+                <strong id="demoWeight">58g</strong>
+              </div>
+              <div class="gauge">
+                <div class="needle" id="demoNeedle"></div>
+                <div class="gauge-base"></div>
+              </div>
+              <div class="leds" id="demoLeds" aria-label="判定LED">
+                <span class="led red"></span>
+                <span class="led amber active"></span>
+                <span class="led blue"></span>
+              </div>
+              <div class="gate half" id="demoGate" aria-label="小型ゲート">
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <div class="negotiation-log" id="demoLog">
+              <span>LOG 01: 行動「締切前だけど休憩する」</span>
+              <span>LOG 02: 初期判定 赤</span>
+              <span>LOG 03: 理由「疲れている」「もう少しで戻る」</span>
+              <span>LOG 04: 結果 黄 / ゲート半開き</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="solist" class="slide solist">
+        <div class="copy narrow">
+          <p class="eyebrow">09 / Solist-AI</p>
+          <h2>Solist-AI™らしい点</h2>
+          <p>
+            この作品では、個人的な理由や逸脱の履歴を手元に閉じ、
+            その人ごとの交渉パターンを学習することが重要になる。
+          </p>
+        </div>
+        <div class="feature-list">
+          <article>
+            <h3>スタンドアローンAI動作</h3>
+            <p>言い訳や逸脱の履歴をクラウドに送らず、手元で処理する。</p>
+          </article>
+          <article>
+            <h3>オンデバイス学習・追加学習</h3>
+            <p>理由カードの選択、操作パターン、交渉結果を学習し、重みづけを変化させる。</p>
+          </article>
+          <article>
+            <h3>AI処理以外の処理を同時実行</h3>
+            <p>推論結果に応じて、針・LED・小型ゲートをリアルタイムに制御する。</p>
+          </article>
+        </div>
+        <div class="learning-loop" aria-label="オンデバイス学習の流れ">
+          <span>選んだ理由</span>
+          <span>操作の仕方</span>
+          <span>交渉結果</span>
+          <span>次回の重み</span>
+        </div>
+      </section>
+
+      <section class="slide finale">
+        <div class="final-copy">
+          <p class="eyebrow">Conclusion</p>
+          <h2>AIに従う / 無視する、の二択を超える</h2>
+          <p>
+            いいわけ秤が作りたいのは、AIが人間をより強く管理する未来ではない。
+            普段は静かに環境へ溶け込み、ズレが生まれた瞬間だけ交渉の場を開く。
+            UIが消えた先に、もう一度、人間がシステムへ理由を返せる入口を作る。
+          </p>
+          <strong>
+            AIに判断された人間が、もう一度自分の理由を返せる未来へ。
+          </strong>
+        </div>
+      </section>
+    </main>
+
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <div class="hint" aria-hidden="true">↑ ↓ キーで移動</div>
+    <script src="script.js"></script>
+  </body>
+</html>
