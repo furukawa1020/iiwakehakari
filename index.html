@@ -24,37 +24,44 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="topbar" aria-label="スライドナビゲーション">
+    <header class="topbar" aria-label="スライド操作盤">
       <a class="brand" href="#top" aria-label="先頭へ戻る">
         <span class="brand-mark"></span>
-        いいわけ秤
+        <span>いいわけ秤</span>
       </a>
-      <nav class="nav">
+
+      <nav class="nav" aria-label="主要スライド">
         <a href="#lineage">系譜</a>
         <a href="#concept">コンセプト</a>
-        <a href="#experience">体験</a>
         <a href="#system">システム</a>
         <a href="#demo">デモ</a>
         <a href="#solist">Solist-AI</a>
       </nav>
+
+      <div class="deck-controls" aria-label="スライド再生操作">
+        <button id="prevSlide" type="button" aria-label="前のスライドへ">←</button>
+        <button id="autoToggle" type="button" aria-pressed="true">AUTO</button>
+        <button id="nextSlide" type="button" aria-label="次のスライドへ">→</button>
+      </div>
+
       <div class="slide-meter" aria-label="現在位置">
-        <span id="slideNumber">01</span><span>/</span><span>11</span>
+        <span id="slideNumber">01</span><span>/</span><span id="slideTotal">11</span>
       </div>
     </header>
 
-    <main id="top">
-      <section class="hero slide" aria-labelledby="hero-title">
+    <main id="top" class="deck" aria-label="いいわけ秤スライド">
+      <section class="hero slide" aria-labelledby="hero-title" data-slide-title="表紙">
         <div class="hero-copy">
-          <p class="kicker">AIの判断に、理由の重さで交渉する卓上デバイス</p>
+          <p class="kicker">Negotiable UI Prototype / Desktop Instrument</p>
           <h1 id="hero-title">あなたの言い訳、今日は何グラム？</h1>
           <p class="lead">
             AIが人間を判断する時代に、人間はAIへ異議申し立てできるのか。
             <strong>いいわけ秤</strong>は、従うか無視するかの間にある
-            「交渉の余白」を、必要な瞬間にだけ現れるUIとして物体化する。
+            「交渉の余白」を、卓上の計器として物体化する。
           </p>
           <div class="hero-actions" aria-label="主要リンク">
-            <a class="button primary" href="#story">ストーリーを見る</a>
-            <a class="button secondary" href="#system">構成図へ</a>
+            <a class="button primary" href="#story">測定を開始</a>
+            <a class="button secondary" href="#demo">操作デモへ</a>
           </div>
         </div>
         <figure class="hero-visual">
@@ -66,7 +73,7 @@
         </figure>
       </section>
 
-      <section id="story" class="slide split">
+      <section id="story" class="slide split" data-slide-title="問題">
         <div class="copy">
           <p class="eyebrow">01 / Problem</p>
           <h2>AIは、私たちの行動を判断するようになった</h2>
@@ -86,16 +93,17 @@
           </p>
         </div>
         <div class="signal-panel" aria-label="AI判断の信号表現">
-          <div class="signal red">止まれ</div>
-          <div class="signal amber">条件付き</div>
-          <div class="signal blue">通ってよい</div>
-          <div class="signal-caption">
-            便利な判断は、いつの間にか一方通行の信号になる。
+          <span class="operation-tag">操作可：信号を押す</span>
+          <button class="signal red" type="button" data-signal="赤：止まれ">止まれ</button>
+          <button class="signal amber" type="button" data-signal="黄：条件付き">条件付き</button>
+          <button class="signal blue" type="button" data-signal="青：通ってよい">通ってよい</button>
+          <div class="signal-caption" id="signalCaption">
+            信号を押すと、判断の状態が読み替えられる。
           </div>
         </div>
       </section>
 
-      <section id="lineage" class="slide lineage">
+      <section id="lineage" class="slide lineage" data-slide-title="系譜">
         <div class="copy narrow">
           <p class="eyebrow">02 / HCI Lineage</p>
           <h2>CUIからGUI、Zero UIへ。そしてNegotiable UIへ</h2>
@@ -105,26 +113,49 @@
           </p>
         </div>
         <div class="timeline" aria-label="UIの変遷">
-          <article>
+          <span class="operation-tag">操作可：カードを押す</span>
+          <button
+            class="timeline-card active"
+            type="button"
+            data-lineage="コマンドは面倒だが、要求の形は明確だった。"
+          >
             <span>CUI / DOS</span>
             <h3>命令するUI</h3>
             <p>ユーザーはコマンドを打ち、システムに明示的に要求する。</p>
-          </article>
-          <article>
+          </button>
+          <button
+            class="timeline-card"
+            type="button"
+            data-lineage="選択肢が見えることで、訂正ややり直しも見えていた。"
+          >
             <span>GUI</span>
             <h3>選択するUI</h3>
             <p>ボタン、窓、メニューを通じて、操作の選択肢が見える。</p>
-          </article>
-          <article>
+          </button>
+          <button
+            class="timeline-card"
+            type="button"
+            data-lineage="操作は消えた。しかし判断の根拠や訂正の入口も薄くなった。"
+          >
             <span>Zero UI</span>
             <h3>消えるUI</h3>
             <p>操作の手間は減るが、判断の根拠や訂正の入口も見えにくくなる。</p>
-          </article>
-          <article>
+          </button>
+          <button
+            class="timeline-card"
+            type="button"
+            data-lineage="普段は黙り、ズレた瞬間だけ交渉の足場として現れる。"
+          >
             <span>Negotiable UI</span>
             <h3>交渉できるUI</h3>
-            <p>普段は黙っていて、ズレた瞬間だけ理由を返す場を開く。</p>
-          </article>
+            <p>必要な瞬間だけ、理由を返す場を開く。</p>
+          </button>
+        </div>
+        <div class="readout-panel">
+          <span>READOUT</span>
+          <strong id="lineageReadout">
+            コマンドは面倒だが、要求の形は明確だった。
+          </strong>
         </div>
         <p class="full-width statement lineage-thesis">
           Zero UIが消したのは、操作の手間だけではない。
@@ -132,22 +163,28 @@
         </p>
       </section>
 
-      <section class="slide reason-slide">
+      <section class="slide reason-slide" data-slide-title="理由">
         <div class="copy narrow">
           <p class="eyebrow">03 / Human Context</p>
           <h2>人間には、理由がある</h2>
           <p>
-            行動変容システムでは、先延ばしや逸脱は失敗として扱われがちである。
-            しかし実際には、その場の人間には文脈がある。
+            先延ばしや逸脱は、外から見れば失敗かもしれない。
+            しかし本人にとっては、その行動を選ぶだけの文脈がある。
+            下の理由カードを押すと、交渉ログに入る言葉が変わる。
           </p>
         </div>
         <div class="reason-grid" aria-label="理由カード一覧">
-          <article>疲れている。</article>
-          <article>あと5分だけならできる。</article>
-          <article>今日は例外かもしれない。</article>
-          <article>タスクの定義が大きすぎる。</article>
-          <article>これはサボりではなく回復かもしれない。</article>
-          <article>AIの判断が、今の文脈とズレているかもしれない。</article>
+          <span class="operation-tag">操作可：理由を読む</span>
+          <button type="button" class="reason-note" data-preview="疲労を理由として登録">疲れている。</button>
+          <button type="button" class="reason-note" data-preview="短い猶予として登録">あと5分だけならできる。</button>
+          <button type="button" class="reason-note" data-preview="例外申請として登録">今日は例外かもしれない。</button>
+          <button type="button" class="reason-note" data-preview="タスク定義のズレとして登録">タスクの定義が大きすぎる。</button>
+          <button type="button" class="reason-note" data-preview="回復の必要として登録">これはサボりではなく回復かもしれない。</button>
+          <button type="button" class="reason-note" data-preview="AI判断への異議として登録">AIの判断が、今の文脈とズレているかもしれない。</button>
+        </div>
+        <div class="readout-panel">
+          <span>CARD READER</span>
+          <strong id="reasonReadout">理由カードを1枚押してください。</strong>
         </div>
         <p class="full-width statement">
           AIの判断に従うか、無視するか。その二択だけではなく、
@@ -155,7 +192,7 @@
         </p>
       </section>
 
-      <section id="concept" class="slide concept">
+      <section id="concept" class="slide concept" data-slide-title="コンセプト">
         <div class="copy">
           <p class="eyebrow">04 / Concept</p>
           <h2>言い訳を、交渉材料にする</h2>
@@ -197,7 +234,7 @@
         </div>
       </section>
 
-      <section id="experience" class="slide experience">
+      <section id="experience" class="slide experience" data-slide-title="体験">
         <div class="copy narrow">
           <p class="eyebrow">05 / Experience</p>
           <h2>体験の流れ</h2>
@@ -228,9 +265,16 @@
             <p>針が傾き、LEDが変わり、ゲートが開く / 半開き / 閉じる。</p>
           </article>
         </div>
+        <div class="station-strip" aria-label="展示時の来場者導線">
+          <span>カード選択</span>
+          <span>初期判定</span>
+          <span>理由提出</span>
+          <span>重み推定</span>
+          <span>ゲート制御</span>
+        </div>
       </section>
 
-      <section class="slide why">
+      <section class="slide why" data-slide-title="秤">
         <div class="copy">
           <p class="eyebrow">06 / Form</p>
           <h2>なぜ「秤」なのか</h2>
@@ -243,56 +287,66 @@
             「疲れている」は、だんだん軽くなるかもしれない。
           </p>
         </div>
-        <div class="weight-examples">
-          <div class="beam">
+        <div class="weight-examples" aria-label="理由の重み例">
+          <span class="operation-tag">操作可：重みの例を押す</span>
+          <button type="button" class="beam" data-preview="履歴が少ないため、疲労理由を重く扱う。">
             <span>1回目の「疲れている」</span>
             <strong>重い</strong>
-          </div>
-          <div class="beam light">
+          </button>
+          <button type="button" class="beam light" data-preview="頻出しているため、同じ理由の重みを下げる。">
             <span>毎回の「疲れている」</span>
             <strong>軽い</strong>
-          </div>
-          <div class="beam">
+          </button>
+          <button type="button" class="beam" data-preview="区切りをつける猶予として評価する。">
             <span>区切りをつける「あと5分」</span>
             <strong>重い</strong>
-          </div>
-          <div class="beam light">
+          </button>
+          <button type="button" class="beam light" data-preview="過去に延長されやすいため警戒する。">
             <span>毎回30分になる「あと5分」</span>
             <strong>軽い</strong>
-          </div>
+          </button>
+        </div>
+        <div class="readout-panel">
+          <span>WEIGHT MODEL</span>
+          <strong id="weightReadout">重みづけの例を押してください。</strong>
         </div>
       </section>
 
-      <section id="system" class="slide system">
+      <section id="system" class="slide system" data-slide-title="システム">
         <div class="copy narrow">
           <p class="eyebrow">07 / System</p>
           <h2>システム構成</h2>
           <p>
             入力は行動カードと理由カード。Solist-AIが初期判定と理由の重み推定を行い、
-            針・LED・ゲートのリアルタイム制御へ返す。
+            針・LED・ゲートのリアルタイム制御へ返す。ノードを押すと実装メモが切り替わる。
           </p>
         </div>
         <div class="system-diagram" aria-label="システム構成図">
-          <article class="node action">
+          <span class="operation-tag">操作可：ノードを押す</span>
+          <button class="node action" type="button" data-node="行動カード：RFIDまたはボタン選択。展示では3種類から選ぶ。">
             <h3>行動カード</h3>
             <p>あと5分SNS / 締切前の休憩 / 今日だけサボる</p>
-          </article>
-          <article class="node detect">
+          </button>
+          <button class="node detect" type="button" data-node="カード検知：RFID、抵抗値、または最小構成のボタン入力。">
             <h3>カード検知</h3>
             <p>RFID / 抵抗値 / ボタン選択</p>
-          </article>
-          <article class="node ai">
+          </button>
+          <button class="node ai" type="button" data-node="Solist-AI：行動の初期判定、理由の重み推定、交渉履歴の追加学習。">
             <h3>Solist-AI™</h3>
             <p>初期判定、理由の重み推定、交渉パターンのオンデバイス学習</p>
-          </article>
-          <article class="node output">
+          </button>
+          <button class="node output" type="button" data-node="物理出力：サーボ角、LED色、ゲート開度、短文表示を同時制御。">
             <h3>物理出力</h3>
             <p>サーボ針、赤黄青LED、小型ゲート、ブザー、短文表示</p>
-          </article>
-          <article class="node input">
+          </button>
+          <button class="node input" type="button" data-node="交渉入力：理由カード、猶予時間ダイヤル、異議申し立てボタン、例外申請レバー。">
             <h3>交渉入力</h3>
             <p>理由カード、猶予時間ダイヤル、異議申し立てボタン、例外申請レバー</p>
-          </article>
+          </button>
+        </div>
+        <div class="readout-panel">
+          <span>IMPLEMENTATION NOTE</span>
+          <strong id="nodeDetail">構成ノードを押してください。</strong>
         </div>
         <div class="spec-strip" aria-label="プロトタイプ実装の具体例">
           <span>最小実装：ボタン選択 + サーボ + LED</span>
@@ -301,17 +355,18 @@
         </div>
       </section>
 
-      <section id="demo" class="slide demo">
+      <section id="demo" class="slide demo" data-slide-title="デモ">
         <div class="copy">
-          <p class="eyebrow">08 / Demo</p>
+          <p class="eyebrow">08 / Interactive Demo</p>
           <h2>その場で交渉してみる</h2>
           <p>
-            行動カードを選び、理由カードを載せ、猶予時間を指定する。
-            判断は抽象的なスコアではなく、針、LED、ゲート、交渉ログとして返る。
+            行動カードを選び、理由カードを載せ、猶予時間と審査モードを指定する。
+            結果は抽象的なスコアではなく、針、LED、ゲート、交渉ログとして返る。
           </p>
         </div>
         <div class="interactive-demo" aria-label="いいわけ秤の操作デモ">
           <div class="demo-controls">
+            <span class="operation-tag">操作可：カード・レバー・ボタンを触る</span>
             <fieldset>
               <legend>行動カード</legend>
               <button class="choice active" type="button" data-action="break" aria-pressed="true">
@@ -344,11 +399,25 @@
               </button>
             </fieldset>
 
+            <fieldset>
+              <legend>審査レバー</legend>
+              <div class="mode-row">
+                <button class="mode-choice" type="button" data-mode="strict" aria-pressed="false">厳しめ</button>
+                <button class="mode-choice active" type="button" data-mode="balanced" aria-pressed="true">通常</button>
+                <button class="mode-choice" type="button" data-mode="lenient" aria-pressed="false">寛容</button>
+              </div>
+            </fieldset>
+
             <label class="time-dial" for="minutesRange">
               <span>申請する猶予</span>
               <strong id="minutesLabel">10分</strong>
               <input id="minutesRange" type="range" min="5" max="30" value="10" step="5" />
             </label>
+
+            <div class="control-row">
+              <button id="appealButton" class="utility-button" type="button">異議申し立て</button>
+              <button id="reMeasureButton" class="utility-button" type="button">再測定</button>
+            </div>
           </div>
 
           <div class="device-console">
@@ -374,6 +443,12 @@
                 <span></span>
               </div>
             </div>
+            <div class="meter-stack" aria-label="スコア内訳">
+              <span><b id="baseMeter">16</b> 行動基準</span>
+              <span><b id="reasonMeter">42</b> 理由加点</span>
+              <span><b id="timeMeter">0</b> 時間ペナルティ</span>
+              <span><b id="appealMeter">0</b> 異議補正</span>
+            </div>
             <div class="negotiation-log" id="demoLog">
               <span>LOG 01: 行動「締切前だけど休憩する」</span>
               <span>LOG 02: 初期判定 赤</span>
@@ -384,7 +459,7 @@
         </div>
       </section>
 
-      <section id="solist" class="slide solist">
+      <section id="solist" class="slide solist" data-slide-title="Solist-AI">
         <div class="copy narrow">
           <p class="eyebrow">09 / Solist-AI</p>
           <h2>Solist-AI™らしい点</h2>
@@ -415,7 +490,7 @@
         </div>
       </section>
 
-      <section class="slide finale">
+      <section class="slide finale" data-slide-title="結論">
         <div class="final-copy">
           <p class="eyebrow">Conclusion</p>
           <h2>AIに従う / 無視する、の二択を超える</h2>
@@ -431,8 +506,13 @@
       </section>
     </main>
 
+    <footer class="slide-footer" aria-label="スライド進行">
+      <div class="dots" id="slideDots" aria-label="スライド一覧"></div>
+      <div class="auto-progress" aria-hidden="true"><span></span></div>
+      <div class="hint" aria-hidden="true">← → / Space / AUTO</div>
+    </footer>
+
     <div class="progress" aria-hidden="true"><span></span></div>
-    <div class="hint" aria-hidden="true">↑ ↓ キーで移動</div>
     <script src="script.js"></script>
   </body>
 </html>
