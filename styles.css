@@ -1876,35 +1876,91 @@ legend {
 }
 
 @media (max-width: 760px) {
-  .topbar {
-    grid-template-columns: 1fr auto;
-    align-items: start;
-    gap: 8px 12px;
+  body {
+    overflow: hidden;
+    line-height: 1.68;
+    background-size: 28px 28px;
   }
 
-  .maker-top {
-    grid-column: 1 / -1;
-    grid-row: 2;
+  .topbar {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 6px 10px;
+    padding: 8px 12px;
+  }
+
+  .brand {
+    min-width: 0;
+    font-size: 14px;
+  }
+
+  .brand-mark {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
+  }
+
+  .brand-mark::after {
+    left: 9px;
+    top: 3px;
+    height: 12px;
   }
 
   .nav {
-    grid-column: 1 / -1;
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 2px;
+    display: none;
   }
 
   .deck-controls {
-    justify-content: flex-end;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    z-index: 50;
+    display: grid;
+    grid-template-columns: 56px 1fr 56px;
+    gap: 8px;
+    pointer-events: auto;
+  }
+
+  .deck-controls button {
+    min-height: 46px;
+    padding: 8px 10px;
+    font-size: 15px;
+  }
+
+  .maker-top {
+    display: none;
   }
 
   .slide-meter {
-    grid-column: 2;
-    grid-row: 1;
+    min-width: auto;
+    justify-content: flex-end;
+    font-size: 14px;
   }
 
   .slide {
-    padding-top: 136px;
+    height: 100dvh;
+    min-height: 100dvh;
+    padding: 74px 16px 132px;
+    gap: 18px;
+    overscroll-behavior: contain;
+  }
+
+  .hero,
+  .split,
+  .concept,
+  .why,
+  .demo,
+  .why-you,
+  .why-solist,
+  .interactive-demo {
+    grid-template-columns: 1fr;
+  }
+
+  .kicker,
+  .eyebrow {
+    margin-bottom: 8px;
+    font-size: 13px;
   }
 
   .timeline,
@@ -1917,6 +1973,62 @@ legend {
     grid-template-columns: 1fr;
   }
 
+  h1 {
+    max-width: 100%;
+    font-size: clamp(34px, 10vw, 44px);
+    line-height: 1.22;
+  }
+
+  h1 span {
+    white-space: normal;
+  }
+
+  h2 {
+    max-width: 100%;
+    font-size: clamp(27px, 8vw, 36px);
+    line-height: 1.28;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .lead,
+  .copy p,
+  .final-copy p {
+    font-size: 15px;
+    line-height: 1.78;
+  }
+
+  .hero-visual img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .hero-actions {
+    margin-top: 20px;
+  }
+
+  .quote-stack,
+  .flow-compare,
+  .feature-list article,
+  .steps article,
+  .signal-panel,
+  .scale-card,
+  .weight-examples,
+  .readout-panel,
+  .station-strip,
+  .demo-controls,
+  .device-console,
+  .negotiation-log,
+  .timeline-card,
+  .reason-note,
+  .why-card,
+  .solist-reason,
+  .solist-memory,
+  .ui-mode-surface {
+    box-shadow: 4px 4px 0 rgba(32, 32, 34, 0.1);
+  }
+
   .timeline-card,
   .reason-note,
   .why-card,
@@ -1926,6 +2038,122 @@ legend {
     min-height: auto;
   }
 
+  .timeline-card,
+  .reason-note,
+  .why-card,
+  .solist-reason,
+  .node,
+  .beam {
+    padding: 16px;
+  }
+
+  .operation-tag {
+    min-height: 30px;
+    font-size: 12px;
+  }
+
+  .ui-mode-surface {
+    min-height: auto;
+    padding: 14px;
+  }
+
+  .ui-mode-callout {
+    min-height: 46px;
+    font-size: clamp(20px, 6vw, 28px);
+  }
+
+  .window-preview,
+  .negotiable-preview {
+    grid-template-columns: 1fr;
+  }
+
+  .terminal-preview,
+  .zero-preview,
+  .zero-surface {
+    min-height: 132px;
+  }
+
+  .cui-command {
+    grid-template-columns: 1fr;
+  }
+
+  .cui-presets {
+    flex-direction: column;
+  }
+
+  .system-diagram {
+    grid-template-columns: 1fr;
+  }
+
+  .node.action,
+  .node.detect,
+  .node.ai,
+  .node.output,
+  .node.input {
+    grid-column: auto;
+  }
+
+  .node::after,
+  .node.input::after {
+    display: none;
+  }
+
+  .interactive-demo {
+    gap: 14px;
+  }
+
+  .demo-controls,
+  .device-console {
+    padding: 12px;
+  }
+
+  fieldset,
+  .time-dial {
+    padding: 12px;
+  }
+
+  .choice,
+  .reason-choice,
+  .mode-choice,
+  .utility-button {
+    min-height: 44px;
+  }
+
+  .gauge {
+    height: 174px;
+  }
+
+  .demo-scale .gauge {
+    height: 156px;
+  }
+
+  .gauge::before {
+    width: 170px;
+    height: 84px;
+  }
+
+  .needle {
+    height: 112px;
+  }
+
+  .scale-head strong {
+    font-size: 32px;
+  }
+
+  .gate {
+    height: 70px;
+  }
+
+  .gate span {
+    width: 58px;
+    height: 34px;
+  }
+
+  .status-stamp {
+    min-height: 48px;
+    font-size: 20px;
+  }
+
   .memory-row {
     grid-template-columns: 1fr;
     gap: 4px;
@@ -1933,19 +2161,36 @@ legend {
 
   .slide-footer {
     grid-template-columns: 1fr;
-    gap: 8px;
+    left: 10px;
+    right: 10px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    gap: 6px;
   }
 
-  .hint {
+  .dots {
     display: none;
   }
 
   .auto-progress {
     height: 8px;
+    order: 1;
   }
 
-  h1 {
-    font-size: clamp(34px, 10vw, 44px);
+  .maker-bottom {
+    order: 2;
+    justify-self: center;
+    min-height: 32px;
+    padding: 5px 9px;
+    font-size: 12px;
+    pointer-events: auto;
+  }
+
+  body.ui-gui .topbar::before {
+    display: none;
+  }
+
+  .hint {
+    display: none;
   }
 
   .hero-actions,
